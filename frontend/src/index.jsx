@@ -77,13 +77,7 @@ const Classifier = () => {
             <div>
                 <video ref={videoRef} onCanPlay={() => playCameraStream()}/>
             </div>
-            <div class="panel">
-                <input id="file-upload" class="hidden" type="file" accept="image/x-png,image/gif,image/jpeg" />
-                <label for="file-upload" id="file-drag" class="upload-box">
-                <div id="upload-caption">Drop image here or click to select</div>
-                <img id="image-preview" class="hidden" />
-                </label>
-            </div>
+       
             <canvas ref={canvasRef} hidden></canvas>
             <p>Currently seeing: {result}</p>
         </>
