@@ -1,4 +1,3 @@
-from unittest import result
 from flask import Flask, render_template, request
 import os
 from reverseProxy import proxRequest
@@ -22,8 +21,8 @@ def index(path=''):
     if MODE == 'development':
         return proxRequest(DEV_SERVER_URL, path)
     else:
-        # return render_template('index.html')
-        return "Hello from Flask"
+        return render_template('index.html')
+        # return "Hello from Flask"
 
 @app.route('/classify', methods=['GET','POST'])
 def classify():

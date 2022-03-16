@@ -4,8 +4,16 @@
 
 
 
-However, couldn't get this to work even locally. Weirdly, it did only after adding a GET request check - if anyone can explain that to me, would be nice :sweat:
+However, couldn't get this to work locally just from the post. Weirdly, it **did work** only after adding a `GET` request check - if anyone can explain that to me, would be nice :sweat:
 
 
 
-Still need to learn how react and flask communicate, I think there is something wrong with the urls/requests, but no clue how to debug...
+Still need to learn how react and flask communicate, I think there was something wrong with the urls/requests, but no clue how to debug...
+
+## Requirements
+
+## Model
+The model used is an image classification model trained on the FashionMNIST dataset using a simple CNN via TF2.6.
+
+
+Next will try to switch to a more meaningful model.
