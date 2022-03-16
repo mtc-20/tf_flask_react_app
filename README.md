@@ -9,3 +9,9 @@ However, couldn't get this to work even locally. Weirdly, it did only after addi
 
 
 Still need to learn how react and flask communicate, I think there is something wrong with the urls/requests, but no clue how to debug...
+
+Tips to deploy on Heroku
+- Use `tensorflow-cpu` in the requirements - keeps slug size within limits[<sup>1</sup>][1]
+- Make sure `Procfile` and `requirements.txt` are in root folder
+
+[1]: https://stackoverflow.com/questions/61062303/deploy-python-app-to-heroku-slug-size-too-large
