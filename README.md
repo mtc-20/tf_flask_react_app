@@ -12,6 +12,7 @@ Still need to learn how react and flask communicate, I think there is something 
 
 Tips to deploy on Heroku
 - Use `tensorflow-cpu` in the requirements - keeps slug size within limits[<sup>1</sup>][1]
+  - tf2.6 has some weird bug with keras dependency, so make sure to add `keras` version to `requirements` if using
 - Make sure `Procfile` and `requirements.txt` are in root folder
 - Make sure you have all buildpacks specified(accesible from Settings) - in this case `heroku/python` and `heroku/nodejs`
 
