@@ -4,7 +4,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 from numpy import argmax
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
-from PIL import Image, ImageFile
+from PIL import Image
 
 model = load_model("../backend/fashion_cnn_e10")
 class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
