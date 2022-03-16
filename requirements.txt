@@ -2,5 +2,5 @@ Flask==2.0.2
 numpy
 Pillow==9.0.1
 requests==2.27.1
-tensorflow==2.6.0
+tensorflow-cpu==2.6.0
 gunicorn
