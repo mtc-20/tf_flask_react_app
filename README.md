@@ -13,5 +13,6 @@ Still need to learn how react and flask communicate, I think there is something 
 Tips to deploy on Heroku
 - Use `tensorflow-cpu` in the requirements - keeps slug size within limits[<sup>1</sup>][1]
 - Make sure `Procfile` and `requirements.txt` are in root folder
+- Make sure you have all buildpacks specified(accesible from Settings) - in this case `heroku/python` and `heroku/nodejs`
 
 [1]: https://stackoverflow.com/questions/61062303/deploy-python-app-to-heroku-slug-size-too-large
