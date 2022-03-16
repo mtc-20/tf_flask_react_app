@@ -4,13 +4,13 @@
 
 
 
-However, couldn't get this to work even locally. Weirdly, it did only after adding a GET request check - if anyone can explain that to me, would be nice :sweat:
+However, couldn't get this to work locally just from the post intructions. Weirdly, it did only after adding a GET request check - if anyone can explain that to me, would be nice :sweat:
 
 
 
 Still need to learn how react and flask communicate, I think there is something wrong with the urls/requests, but no clue how to debug...
 
-Tips to deploy on Heroku
+## Tips to deploy on Heroku
 - Use `tensorflow-cpu` in the requirements - keeps slug size within limits[<sup>1</sup>][1]
   - tf2.6 has some weird bug with keras dependency, so make sure to add `keras` version to `requirements` if using
 - Make sure `Procfile` and `requirements.txt` are in root folder
