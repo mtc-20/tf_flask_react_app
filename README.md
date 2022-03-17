@@ -10,17 +10,27 @@ However, couldn't get this to work locally just from the post. Weirdly, it **did
 
 Still need to learn how react and flask communicate, I think there was something wrong with the urls/requests, but no clue how to debug...
 
-## Requirements
-Python requirements are in `backend` folder
+## Getting started
+Would be a good idea to create a virtual environment. I used `conda` for this containing Python 3.9 and Tensorflow 2.6.
+
+The backend is handled by Python and the requirements are in `backend` folder
 ```bash
 cd backend
 pip install -r requirments.txt
 ```
 
-Node requirements are in `frontend` folder
-
+Node handles frontend stuff and the requirements are in `frontend` folder
+```bash
+cd frontend
+npm install
+```
+To run locally
+```bash
+cd frontend
+npm run start:server-dev
+```
 ## Model
-The model used is an image classification model trained on the FashionMNIST dataset using a simple CNN via TF2.6. The model training notebook can be found [here](https://github.com/mtc-20/Machine_learning_projects/blob/MTC/Fashion_classification/Fashion_classification.ipynb).
+The model used is an image classification model trained on the FashionMNIST dataset using a simple CNN. The model training notebook can be found [here](https://github.com/mtc-20/Machine_learning_projects/blob/MTC/Fashion_classification/Fashion_classification.ipynb).
 
 
 Next will try to switch to a more meaningful model.
