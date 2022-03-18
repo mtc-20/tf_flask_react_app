@@ -74,11 +74,7 @@ def draw_bbox_on_img(img, ymin, xmin, ymax, xmax, color='red', thickness=2, disp
 def viz_boxes_and_labels_on_arr(img, boxes, classes, scores, labels_dict, use_normalized_coords=True, max_boxes_to_draw=30, min_score_thresh=0.4):
 	box_to_display_str_map = collections.defaultdict(list)
 	box_to_color_map = collections.defaultdict(str)
-	# box_to_instance_masks_maps = {}
-	# box_to_instance_boundaries_maps = {}
-	# box_to_keypoints_map = collections.defaultdict(list)
-	# box_to_keypoint_scores_map = collections.defaultdict(list)
-	# box_to_track_ids_map = {}
+
 	if not max_boxes_to_draw:
 		max_boxes_to_draw = boxes.shape[0]
 		
@@ -147,13 +143,13 @@ def read_label_map(label_map_path:str):
 
 MODEL_NAME = "ssd_mobilenet_v2"
 model_url = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/2?tf-hub-format=compressed"
-# model_path = get_file(MODEL_NAME, model_url, extract=True)
-model_path = get_file(MODEL_NAME, model_url, untar=True)
+model_path = get_file(MODEL_NAME, model_url, extract=True)
+# model_path = get_file(MODEL_NAME, model_url, untar=True)
 print(model_path)
 
 labels_path = get_file(
 'mscoco_label_map.pbtxt','https://raw.githubusercontent.com/tensorflow/models/master/research/object_detection/data/mscoco_label_map.pbtxt')
-
+print(labels_path)
 
 labels_dict = read_label_map(labels_path)
 
