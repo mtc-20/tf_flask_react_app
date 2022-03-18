@@ -14,7 +14,9 @@ const Detector = () => {
                 audio: false,
                 video: {
                     width: {max: 320},
-                    height: {max:240}
+                    height: {max:240},
+                    frameRate:{max:15,
+                    ideal:5}
                 }
             });
 
@@ -45,8 +47,8 @@ const Detector = () => {
                     const image_res = await response.blob();
                     const imageObjectURL = URL.createObjectURL(image_res);
                     setResult(imageObjectURL);
-                    console.log(imageObjectURL)
-                    console.log(image_res)
+                    // console.log(imageObjectURL)
+                    // console.log(image_res)
                 } else {
                     setResult("Error from API");
                 }
@@ -69,7 +71,6 @@ const Detector = () => {
 
         canvasRef.current.width = videoWidth;
         canvasRef.current.height = videoHeight;
-        // console.log(videoHeight)
 
         context.drawImage(videoRef.current, 0, 0, videoWidth, videoHeight);
         canvasRef.current.toBlob((blob) => {
