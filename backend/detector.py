@@ -141,15 +141,15 @@ def read_label_map(label_map_path:str):
 
 
 
-MODEL_NAME = "ssd_mobilenet_v2"
+MODEL_NAME = "/app/backend/ssd_mobilenet_v2"
 model_url = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/2?tf-hub-format=compressed"
 model_path = get_file("/app/backend/ssd_mobilenet_v2.tar.gz", model_url)
-# model_path = get_file(MODEL_NAME, model_url, untar=True)
-print(model_path)
+
+# print(model_path)
 
 assert os.path.exists("/app/backend/ssd_mobilenet_v2.tar.gz"), "File not downloaded"
 with tarfile.open("/app/backend/ssd_mobilenet_v2.tar.gz", "r:gz") as tar:
-	tar.extractall("/app/backend/ssd_mobilenet_v2")
+	tar.extractall(MODEL_NAME)
 
 
 
@@ -160,7 +160,7 @@ print(labels_path)
 labels_dict = read_label_map(labels_path)
 
 start = perf_counter()
-model = load("/app/backend/ssd_mobilenet_v2")
+model = load(MODEL_NAME)
 elapsed = perf_counter() - start
 print("Time to load model: {} sec".format(elapsed))
 
@@ -170,7 +170,6 @@ def getDetections(image_file, model):
 	img_input = img_input.convert('RGB')
 	im_w, im_h = img_input.size
 	img_arr = image.img_to_array(img_input)
-	print(img_arr.shape)
 	img_arr = img_arr.reshape(1,im_h,im_w,3)
 	# start = perf_counter()
 	out_base = model(img_arr)

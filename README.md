@@ -3,12 +3,13 @@
 **An image classification web app using [`TF2.x`](https://www.tensorflow.org/)(inference), `React`(frontend) and `Flask`(backend) based on this [Medium article](https://medium.com/sopra-steria-norge/build-a-simple-image-classification-app-using-react-keras-and-flask-7b9075e3b6f5)). Decided to try this since they had a working web app running on Heroku, which is what my end goal was.**
 
 
-
-However, couldn't get this to work locally just from the post intructions. Weirdly, it did only after adding a `GET` request check - if anyone can explain that to me, would be nice :sweat:
-
+Seem to run into memory error with Heroku
 
 
-It was even harder to get it working on Heroku, atleast its deployed now 🙂!
+
+
+**v0.1 notes:**
+    It was even harder to get it working on Heroku, atleast its deployed now 🙂!
 
 ## Tips for deploying on Heroku
 - Use `tensorflow-cpu` in the requirements - keeps slug size within limits[<sup>1</sup>][1]
