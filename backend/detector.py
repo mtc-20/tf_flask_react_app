@@ -150,7 +150,7 @@ model_path = get_file("/app/backend/ssd_mobilenet_v2_fpn.tar.gz", model_url)
 # print(model_path)
 
 assert os.path.exists("/app/backend/ssd_mobilenet_v2_fpn.tar.gz"), "File not downloaded"
-with tarfile.open("/app/backend/ssd_mobilenet_v2.tar_fpn.gz", "r:gz") as tar:
+with tarfile.open("/app/backend/ssd_mobilenet_v2_fpn.tar.gz", "r:gz") as tar:
 	tar.extractall(MODEL_NAME)
 
 
