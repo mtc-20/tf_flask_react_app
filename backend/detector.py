@@ -141,14 +141,16 @@ def read_label_map(label_map_path:str):
 
 
 
-MODEL_NAME = "/app/backend/ssd_mobilenet_v2"
-model_url = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/2?tf-hub-format=compressed"
-model_path = get_file("/app/backend/ssd_mobilenet_v2.tar.gz", model_url)
+# MODEL_NAME = "/app/backend/ssd_mobilenet_v2"
+# model_url = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/2?tf-hub-format=compressed"
+MODEL_NAME = "/app/backend/ssd_mobilenet_v2_fpn"
+model_url = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/fpnlite_320x320/1?tf-hub-format=compressed"
+model_path = get_file("/app/backend/ssd_mobilenet_v2_fpn.tar.gz", model_url)
 
 # print(model_path)
 
-assert os.path.exists("/app/backend/ssd_mobilenet_v2.tar.gz"), "File not downloaded"
-with tarfile.open("/app/backend/ssd_mobilenet_v2.tar.gz", "r:gz") as tar:
+assert os.path.exists("/app/backend/ssd_mobilenet_v2_fpn.tar.gz"), "File not downloaded"
+with tarfile.open("/app/backend/ssd_mobilenet_v2.tar_fpn.gz", "r:gz") as tar:
 	tar.extractall(MODEL_NAME)
 
 
@@ -168,9 +170,10 @@ print("Time to load model: {} sec".format(elapsed))
 def getDetections(image_file, model):
 	img_input = Image.open(image_file)
 	img_input = img_input.convert('RGB')
-	im_w, im_h = img_input.size
+	img_input = img_input.resize((320,320), Image.NEAREST)
+	# im_w, im_h = img_input.size
 	img_arr = image.img_to_array(img_input)
-	img_arr = img_arr.reshape(1,im_h,im_w,3)
+	img_arr = img_arr.reshape(1,320,320,3)
 	# start = perf_counter()
 	out_base = model(img_arr)
 	# elapsed = perf_counter() - start
