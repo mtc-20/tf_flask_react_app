@@ -7,6 +7,9 @@ Seem to run into memory error with Heroku
     [web.1]: Process running mem=1189M(232.4%)
     [web.1]: Error R15 (Memory quota vastly exceeded)
 
+Have got it down to 152% with a smaller model and some `gc`
+    [web.1]: Process running mem=783M(152.2%)
+    [web.1]: Error R14 (Memory quota exceeded)
 
 
 
