@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing import image
 from tensorflow.keras.utils import get_file
 from tensorflow.saved_model import load
 from time import perf_counter
-
+import tarfile
 
 STANDARD_COLORS = [
 		'AliceBlue', 'Chartreuse', 'Aqua', 'Aquamarine', 'Azure', 'Beige', 'Bisque',
@@ -143,9 +143,15 @@ def read_label_map(label_map_path:str):
 
 MODEL_NAME = "ssd_mobilenet_v2"
 model_url = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/2?tf-hub-format=compressed"
-model_path = get_file("/app/backend/ssd_mobilenet_v2.tar.gz", model_url, extract=True)
+model_path = get_file("/app/backend/ssd_mobilenet_v2.tar.gz", model_url)
 # model_path = get_file(MODEL_NAME, model_url, untar=True)
 print(model_path)
+
+assert os.path.exists("/app/backend/ssd_mobilenet_v2.tar.gz"), "File not downloaded"
+with tarfile.open("/app/backend/ssd_mobilenet_v2.tar.gz", "r:gz") as tar:
+	tar.extractall("/app/backend/ssd_mobilenet_v2")
+
+
 
 labels_path = get_file(
 'mscoco_label_map.pbtxt','https://raw.githubusercontent.com/tensorflow/models/master/research/object_detection/data/mscoco_label_map.pbtxt')
