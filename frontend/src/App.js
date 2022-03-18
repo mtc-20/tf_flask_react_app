@@ -1,14 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
 import Classifier from './index.jsx';
+import Detector from './detector';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         
-        <div>
+        {/* <div>
         <Classifier />
+        </div> */}
+        <div>
+          <Detector/>
         </div>
         <a
           className="App-link"

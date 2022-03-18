@@ -1,10 +1,12 @@
 # TF Web app 
 
-**An image classification web app using TF(inference), React(frontend) and Flask(backend) based on this [Medium article](https://medium.com/sopra-steria-norge/build-a-simple-image-classification-app-using-react-keras-and-flask-7b9075e3b6f5)). Decided to try this since they had a working web app running on Heroku, which is what my end goal was.**
+**An object detection web app using TF(inference), React(frontend) and Flask(backend) based on this [Medium article](https://medium.com/sopra-steria-norge/build-a-simple-image-classification-app-using-react-keras-and-flask-7b9075e3b6f5)).** 
+
+This app has been tested only for local deployment so far.
 
 
-
-However, couldn't get this to work locally just from the post. Weirdly, it **did work** only after adding a `GET` request check - if anyone can explain that to me, would be nice :sweat:
+**v0.1 notes:**
+Originally, decided to try the tutorial since they had a working web app running on Heroku, which is what my end goal was. However, couldn't get it to work locally just from the post. Weirdly, it **did work** only after adding a `GET` request check - if anyone can explain that to me, would be nice :sweat:
 
 
 
@@ -30,7 +32,5 @@ cd frontend
 npm run start:server-dev
 ```
 ## Model
-The model used is an image classification model trained on the FashionMNIST dataset using a simple CNN. The model training notebook can be found [here](https://github.com/mtc-20/Machine_learning_projects/blob/MTC/Fashion_classification/Fashion_classification.ipynb).
+The model used is a [Mobilenetv2 SSD](https://tfhub.dev/tensorflow/ssd_mobilenet_v2/2) trained on the COCO2017 dataset.
 
-
-Next will try to switch to a more meaningful model.
