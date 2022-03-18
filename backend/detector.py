@@ -9,6 +9,8 @@ from tensorflow.keras.utils import get_file
 from tensorflow.saved_model import load
 from time import perf_counter
 import tarfile
+import gc
+
 
 STANDARD_COLORS = [
 		'AliceBlue', 'Chartreuse', 'Aqua', 'Aquamarine', 'Azure', 'Beige', 'Bisque',
@@ -181,6 +183,8 @@ def getDetections(image_file, model):
 	out_base['detection_classes'] = out_base['detection_classes'].numpy().astype(np.int64)
 
 	img_numpy = img_arr.astype(np.uint8).copy()
+	del img_input, img_arr
+	gc.collect()
 	overlaid = viz_boxes_and_labels_on_arr(img_numpy[0], out_base['detection_boxes'].numpy()[0], out_base['detection_classes'][0], out_base['detection_scores'].numpy()[0], labels_dict, max_boxes_to_draw=20, min_score_thresh=.6, use_normalized_coords=True)
 	return overlaid
 
