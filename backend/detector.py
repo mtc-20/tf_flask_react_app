@@ -1,8 +1,8 @@
-import io
+from io import BytesIO
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import numpy as np
-import collections
+from collections import defaultdict
 from PIL import Image, ImageDraw, ImageFont
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.utils import get_file
@@ -72,8 +72,8 @@ def draw_bbox_on_img(img, ymin, xmin, ymax, xmax, color='red', thickness=2, disp
 
 
 def viz_boxes_and_labels_on_arr(img, boxes, classes, scores, labels_dict, use_normalized_coords=True, max_boxes_to_draw=30, min_score_thresh=0.4):
-	box_to_display_str_map = collections.defaultdict(list)
-	box_to_color_map = collections.defaultdict(str)
+	box_to_display_str_map = defaultdict(list)
+	box_to_color_map = defaultdict(str)
 
 	if not max_boxes_to_draw:
 		max_boxes_to_draw = boxes.shape[0]
@@ -184,7 +184,7 @@ def getDetections(image_file, model):
 def overlayImage(image_file):
 	overlay_arr = getDetections(image_file, model)
 	overlay_img = Image.fromarray(overlay_arr.astype(np.uint8))
-	file_obj = io.BytesIO()
+	file_obj = BytesIO()
 	overlay_img.save(file_obj, 'PNG')
 	file_obj.seek(0)
 	return file_obj
