@@ -160,7 +160,7 @@ print(labels_path)
 labels_dict = read_label_map(labels_path)
 
 start = perf_counter()
-model = load(model_path)
+model = load("/app/backend/ssd_mobilenet_v2")
 elapsed = perf_counter() - start
 print("Time to load model: {} sec".format(elapsed))
 
