@@ -3,7 +3,7 @@ import os
 # from backend.detector import overlayImage
 from reverseProxy import proxRequest
 from classifier import classifyImage
-from detector import overlayImage
+from detector_lite import overlayImage
 
 MODE = os.getenv('FLASK_ENV')
 DEV_SERVER_URL = 'http://localhost:3000/'
