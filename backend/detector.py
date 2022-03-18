@@ -143,7 +143,7 @@ def read_label_map(label_map_path:str):
 
 MODEL_NAME = "ssd_mobilenet_v2"
 model_url = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/2?tf-hub-format=compressed"
-model_path = get_file(MODEL_NAME, model_url, extract=True)
+model_path = get_file("app/models/ssd_mobilenet_v2.tar.gz", model_url, extract=True)
 # model_path = get_file(MODEL_NAME, model_url, untar=True)
 print(model_path)
 
