@@ -179,12 +179,13 @@ def getDetections(image_file, interpreter):
 	scores = interpreter.get_tensor(output_details[2]['index'])[0]
 	num = interpreter.get_tensor(output_details[3]['index'])[0]
 
-	overlaid = viz_bboxes_and_labels(img_input, boxes.copy(), labels.astype(np.int64), scores.copy(), labels_dict)
+	overlaid = viz_bboxes_and_labels(img_input, boxes.copy(), labels.astype(np.int64).copy(), scores.copy(), labels_dict)
 	del img_arr
 	gc.collect()
 	return overlaid
 
 def overlayImage(image_file):
+	interpreter = lite.Interpreter(model_path)
 	overlay_img = getDetections(image_file, interpreter)
 	# overlay_img = Image.fromarray(overlay_arr.astype(np.uint8))
 	file_obj = BytesIO()
