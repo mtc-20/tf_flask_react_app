@@ -161,7 +161,7 @@ w, h = input_details[0]['shape'][1:3]
 output_details = interpreter.get_output_details()
 
 
-def getDetections(image_file, interpreter, input_details):
+def getDetections(image_file, interpreter):
 	img_input = Image.open(image_file)
 	img_input = img_input.convert('RGB')
 	img_input = img_input.resize((w,h), Image.NEAREST)
