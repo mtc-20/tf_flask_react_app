@@ -157,9 +157,9 @@ elapsed = perf_counter() - start
 print("Time to load model: {} sec".format(elapsed))
 
 g.interpreter.allocate_tensors()
-input_details = g.interpreter.get_input_details()
-w, h = input_details[0]['shape'][1:3]
-output_details = g.interpreter.get_output_details()
+g.input_details = g.interpreter.get_input_details()
+w, h = g.input_details[0]['shape'][1:3]
+g.output_details = g.interpreter.get_output_details()
 
 
 def getDetections(image_file):
@@ -172,15 +172,15 @@ def getDetections(image_file):
 
 	# start = perf_counter()
 	img_tensor = convert_to_tensor(np.copy(input_data), np.uint8)
-	g.interpreter.set_tensor(input_details[0]['index'], img_tensor)
+	g.interpreter.set_tensor(g.input_details[0]['index'], img_tensor)
 	del img_arr, input_data
 	g.interpreter.invoke()
 	
 	# elapsed = perf_counter() - start
 	# print("Time for inference: {} sec".format(elapsed))
-	boxes = g.interpreter.get_tensor(output_details[0]['index'])[0]
-	labels = g.interpreter.get_tensor(output_details[1]['index'])[0]
-	scores = g.interpreter.get_tensor(output_details[2]['index'])[0]
+	boxes = g.interpreter.get_tensor(g.output_details[0]['index'])[0]
+	labels = g.interpreter.get_tensor(g.output_details[1]['index'])[0]
+	scores = g.interpreter.get_tensor(g.output_details[2]['index'])[0]
 	# num = interpreter.get_tensor(output_details[3]['index'])[0]
 
 	overlaid = viz_bboxes_and_labels(img_input, boxes.copy(), labels.astype(np.int64).copy(), scores.copy(), labels_dict)
