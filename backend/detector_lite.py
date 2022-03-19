@@ -7,6 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.utils import get_file
 from tensorflow import lite
+from tensorflow import convert_to_tensor
 from time import perf_counter
 import gc
 
@@ -154,6 +155,7 @@ interpreter = lite.Interpreter(model_path)
 elapsed = perf_counter() - start
 print("Time to load model: {} sec".format(elapsed))
 
+interpreter.allocate_tensors()
 input_details = interpreter.get_input_details()
 w, h = input_details[0]['shape'][1:3]
 output_details = interpreter.get_output_details()
@@ -167,9 +169,9 @@ def getDetections(image_file, interpreter):
 	img_arr = image.img_to_array(img_input)
 	img_arr = img_arr.reshape(1,h,w,3)
 
-	interpreter.allocate_tensors()
 	# start = perf_counter()
-	interpreter.set_tensor(input_details[0]['index'], img_arr.astype(np.uint8).copy())
+	img_tensor = convert_to_tensor(img_arr, np.uint8)
+	interpreter.set_tensor(input_details[0]['index'], img_tensor)
 	interpreter.invoke()
 	
 	# elapsed = perf_counter() - start
