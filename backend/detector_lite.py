@@ -169,7 +169,7 @@ def getDetections(image_file, interpreter):
 
 	interpreter.allocate_tensors()
 	# start = perf_counter()
-	interpreter.set_tensor(input_details[0]['index'], img_arr.astype(np.uint8))
+	interpreter.set_tensor(input_details[0]['index'], img_arr.astype(np.uint8).copy())
 	interpreter.invoke()
 	
 	# elapsed = perf_counter() - start
@@ -185,7 +185,8 @@ def getDetections(image_file, interpreter):
 	return overlaid
 
 def overlayImage(image_file):
-	interpreter = lite.Interpreter(model_path)
+
+	# interpreter = lite.Interpreter(model_path)
 	overlay_img = getDetections(image_file, interpreter)
 	# overlay_img = Image.fromarray(overlay_arr.astype(np.uint8))
 	file_obj = BytesIO()
