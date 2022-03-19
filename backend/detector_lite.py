@@ -183,7 +183,7 @@ def getDetections(image_file, interpreter):
 	return overlaid
 
 def overlayImage(image_file):
-	overlay_arr = getDetections(image_file, model)
+	overlay_arr = getDetections(image_file, interpreter)
 	overlay_img = Image.fromarray(overlay_arr.astype(np.uint8))
 	file_obj = BytesIO()
 	overlay_img.save(file_obj, 'PNG')
