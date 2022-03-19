@@ -1,3 +1,4 @@
+from cProfile import label
 from io import BytesIO
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
@@ -10,7 +11,7 @@ from tensorflow import lite
 from tensorflow import convert_to_tensor
 from time import perf_counter
 import gc
-
+from flask import g
 
 STANDARD_COLORS = [
 		'AliceBlue', 'Chartreuse', 'Aqua', 'Aquamarine', 'Azure', 'Beige', 'Bisque',
@@ -151,14 +152,14 @@ print(labels_path)
 labels_dict = read_label_map(labels_path)
 
 start = perf_counter()
-interpreter = lite.Interpreter(model_path)
+g.interpreter = lite.Interpreter(model_path)
 elapsed = perf_counter() - start
 print("Time to load model: {} sec".format(elapsed))
 
-interpreter.allocate_tensors()
-input_details = interpreter.get_input_details()
+g.interpreter.allocate_tensors()
+input_details = g.interpreter.get_input_details()
 w, h = input_details[0]['shape'][1:3]
-output_details = interpreter.get_output_details()
+output_details = g.interpreter.get_output_details()
 
 
 def getDetections(image_file):
@@ -171,18 +172,19 @@ def getDetections(image_file):
 
 	# start = perf_counter()
 	img_tensor = convert_to_tensor(np.copy(input_data), np.uint8)
-	interpreter.set_tensor(input_details[0]['index'], img_tensor)
+	g.interpreter.set_tensor(input_details[0]['index'], img_tensor)
 	del img_arr, input_data
-	interpreter.invoke()
+	g.interpreter.invoke()
 	
 	# elapsed = perf_counter() - start
 	# print("Time for inference: {} sec".format(elapsed))
-	boxes = interpreter.get_tensor(output_details[0]['index'])[0]
-	labels = interpreter.get_tensor(output_details[1]['index'])[0]
-	scores = interpreter.get_tensor(output_details[2]['index'])[0]
+	boxes = g.interpreter.get_tensor(output_details[0]['index'])[0]
+	labels = g.interpreter.get_tensor(output_details[1]['index'])[0]
+	scores = g.interpreter.get_tensor(output_details[2]['index'])[0]
 	# num = interpreter.get_tensor(output_details[3]['index'])[0]
 
 	overlaid = viz_bboxes_and_labels(img_input, boxes.copy(), labels.astype(np.int64).copy(), scores.copy(), labels_dict)
+	del boxes, labels, scores
 	gc.collect()
 	return overlaid
 
