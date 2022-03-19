@@ -161,17 +161,17 @@ w, h = input_details[0]['shape'][1:3]
 output_details = interpreter.get_output_details()
 
 
-def getDetections(image_file, interpreter):
+def getDetections(image_file, interpreter, input_details):
 	img_input = Image.open(image_file)
 	img_input = img_input.convert('RGB')
 	img_input = img_input.resize((w,h), Image.NEAREST)
 	# im_w, im_h = img_input.size
 	img_arr = image.img_to_array(img_input)
-	img_arr = img_arr.reshape(1,h,w,3)
+	input_data = np.expand_dims(img_arr, axis=0)
 
 	# start = perf_counter()
-	img_tensor = convert_to_tensor(img_arr, np.uint8)
-	interpreter.set_tensor(input_details[0]['index'], img_tensor)
+	# img_tensor = convert_to_tensor(input_data, np.uint8)
+	interpreter.set_tensor(input_details[0]['index'], input_data)
 	interpreter.invoke()
 	
 	# elapsed = perf_counter() - start
