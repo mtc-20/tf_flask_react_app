@@ -166,12 +166,13 @@ def getDetections(image_file):
 	img_input = img_input.convert('RGB')
 	img_input = img_input.resize((w,h), Image.NEAREST)
 	# im_w, im_h = img_input.size
-	img_arr = image.img_to_array(img_input.copy())
+	img_arr = image.img_to_array(np.copy(img_input))
 	input_data = np.expand_dims(img_arr, axis=0)
 
 	# start = perf_counter()
-	img_tensor = convert_to_tensor(input_data, np.uint8)
+	img_tensor = convert_to_tensor(np.copy(input_data), np.uint8)
 	interpreter.set_tensor(input_details[0]['index'], img_tensor)
+	del img_arr, input_data
 	interpreter.invoke()
 	
 	# elapsed = perf_counter() - start
@@ -182,7 +183,6 @@ def getDetections(image_file):
 	# num = interpreter.get_tensor(output_details[3]['index'])[0]
 
 	overlaid = viz_bboxes_and_labels(img_input, boxes.copy(), labels.astype(np.int64).copy(), scores.copy(), labels_dict)
-	del img_arr, input_data
 	gc.collect()
 	return overlaid
 
@@ -197,4 +197,4 @@ def overlayImage(image_file):
 	return file_obj
 
 	
-
+	
