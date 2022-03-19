@@ -170,8 +170,8 @@ def getDetections(image_file, interpreter):
 	input_data = np.expand_dims(img_arr, axis=0)
 
 	# start = perf_counter()
-	# img_tensor = convert_to_tensor(input_data, np.uint8)
-	interpreter.set_tensor(input_details[0]['index'], input_data.astype(np.uint8))
+	img_tensor = convert_to_tensor(input_data, np.uint8)
+	interpreter.set_tensor(input_details[0]['index'], img_tensor)
 	interpreter.invoke()
 	
 	# elapsed = perf_counter() - start
@@ -182,7 +182,7 @@ def getDetections(image_file, interpreter):
 	# num = interpreter.get_tensor(output_details[3]['index'])[0]
 
 	overlaid = viz_bboxes_and_labels(img_input, boxes.copy(), labels.astype(np.int64).copy(), scores.copy(), labels_dict)
-	del img_arr
+	del img_arr, input_data
 	gc.collect()
 	return overlaid
 
