@@ -153,7 +153,7 @@ start = perf_counter()
 interpreter = lite.Interpreter(model_path)
 elapsed = perf_counter() - start
 print("Time to load model: {} sec".format(elapsed))
-interpreter.allocate_tensors()
+
 input_details = interpreter.get_input_details()
 w, h = input_details[0]['shape'][1:3]
 output_details = interpreter.get_output_details()
@@ -166,6 +166,8 @@ def getDetections(image_file, interpreter):
 	# im_w, im_h = img_input.size
 	img_arr = image.img_to_array(img_input)
 	img_arr = img_arr.reshape(1,h,w,3)
+
+	interpreter.allocate_tensors()
 	# start = perf_counter()
 	interpreter.set_tensor(input_details[0]['index'], img_arr.astype(np.uint8))
 	interpreter.invoke()
@@ -177,7 +179,7 @@ def getDetections(image_file, interpreter):
 	scores = interpreter.get_tensor(output_details[2]['index'])[0]
 	num = interpreter.get_tensor(output_details[3]['index'])[0]
 
-	overlaid = viz_bboxes_and_labels(img_input, boxes, labels.astype(np.int64), scores, labels_dict)
+	overlaid = viz_bboxes_and_labels(img_input.copy(), boxes, labels.astype(np.int64), scores, labels_dict)
 	del img_arr
 	gc.collect()
 	return overlaid
