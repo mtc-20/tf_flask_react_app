@@ -161,12 +161,12 @@ w, h = input_details[0]['shape'][1:3]
 output_details = interpreter.get_output_details()
 
 
-def getDetections(image_file, interpreter):
+def getDetections(image_file):
 	img_input = Image.open(image_file)
 	img_input = img_input.convert('RGB')
 	img_input = img_input.resize((w,h), Image.NEAREST)
 	# im_w, im_h = img_input.size
-	img_arr = image.img_to_array(img_input)
+	img_arr = image.img_to_array(img_input.copy())
 	input_data = np.expand_dims(img_arr, axis=0)
 
 	# start = perf_counter()
@@ -189,7 +189,7 @@ def getDetections(image_file, interpreter):
 def overlayImage(image_file):
 
 	# interpreter = lite.Interpreter(model_path)
-	overlay_img = getDetections(image_file, interpreter)
+	overlay_img = getDetections(image_file)
 	# overlay_img = Image.fromarray(overlay_arr.astype(np.uint8))
 	file_obj = BytesIO()
 	overlay_img.save(file_obj, 'PNG')
