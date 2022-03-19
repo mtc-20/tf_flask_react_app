@@ -15,8 +15,6 @@ const Detector = () => {
                 video: {
                     width: {max: 320},
                     height: {max:240},
-                    frameRate:{max:20,
-                    ideal:15}
                 }
             });
 
