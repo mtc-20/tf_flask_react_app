@@ -167,7 +167,7 @@ def getDetections(image_file, interpreter):
 	img_arr = image.img_to_array(img_input)
 	img_arr = img_arr.reshape(1,h,w,3)
 	# start = perf_counter()
-	interpreter.set_tensor(input_details[0]['index'], img_arr)
+	interpreter.set_tensor(input_details[0]['index'], img_arr.astype(np.uint8))
 	interpreter.invoke()
 	
 	# elapsed = perf_counter() - start
