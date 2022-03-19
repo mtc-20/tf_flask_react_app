@@ -150,7 +150,7 @@ print(labels_path)
 labels_dict = read_label_map(labels_path)
 
 start = perf_counter()
-interpreter = lite.Interpreter(MODEL_NAME)
+interpreter = lite.Interpreter(model_path)
 elapsed = perf_counter() - start
 print("Time to load model: {} sec".format(elapsed))
 interpreter.allocate_tensors()
