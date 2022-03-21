@@ -1,95 +1,64 @@
-import React, { useEffect, useRef, useState }  from "react";
-
+import React, { useState }  from "react";
 
 const Detector = () => {
-    const canvasRef = useRef();
-    const imageRef = useRef();
-    const videoRef = useRef();
+  
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [result, setResult] = useState("");
 
-    const [result, setResult] = useState("");
+  const onFileUpload = async (e) => {
+    if (selectedFile){
+      // console.log(selectedFile)
+      const formData = new FormData();
+      // formData.append("name", fileName);
+      formData.append("image", selectedFile);
 
-    useEffect(() => {
-        async function getCameraStream() {
-            const stream = await navigator.mediaDevices.getUserMedia({
-                audio: false,
-                video: {
-                    width: {max: 320},
-                    height: {max:240},
-                }
-            });
 
-            if (videoRef.current) {
-                videoRef.current.srcObject = stream;
-            }
-        };
+      const response = await fetch('/detect', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      if (response.status === 200) {
+        const img_res = await response.blob();
+        const imgObjectURL = URL.createObjectURL(img_res);
+        setResult(imgObjectURL);
+      }
+      else {
+        console.log("Error from API")
+        setResult("Error from API")
+      }
 
-        getCameraStream();
-        
-    }, []);
+
+    }
+  }
+
+  const handleImageInput = (e) => {
+    const file = e.target.files[0];
+    if (file){
+      console.log(file);
+      setSelectedFile(file)
+    }
+  }
+
+  return(
+    <>
+    <h1>Object Detection</h1>
+    <div>
+      <input type="file" 
+        accept="image/*"
+        onChange={handleImageInput}
+        />  
+      <button
+        onClick={(e)  => onFileUpload(e)}>Upload!</button>
+    </div>
+
+    <div>
+     <img src={result} alt="" width="320"/> 
+    </div>
     
+    </>
+  )
 
-    useEffect(() => {
-        const interval = setInterval(async () => {
-            await captureImageFromCamera();
-
-            if(imageRef.current){
-                const formData = new FormData();
-                formData.append('image', imageRef.current);
-
-                const response = await fetch('/detect', {
-                    method: 'POST',
-                    body: formData,
-                });
-
-                if (response.status === 200) {
-                    const image_res = await response.blob();
-                    const imageObjectURL = URL.createObjectURL(image_res);
-                    setResult(imageObjectURL);
-                    // console.log(imageObjectURL)
-                    // console.log(image_res)
-                } else {
-                    setResult("Error from API");
-                }
-            }
-        }, 1000);
-
-        return () => clearInterval(interval)
-        
-    }, []);
-    
-    const playCameraStream = () => {
-        if (videoRef.current) {
-            videoRef.current.play();
-        }
-    };
-
-    const captureImageFromCamera = () => {
-        const context = canvasRef.current.getContext('2d');
-        const {videoWidth, videoHeight} = videoRef.current;
-
-        canvasRef.current.width = videoWidth;
-        canvasRef.current.height = videoHeight;
-
-        context.drawImage(videoRef.current, 0, 0, videoWidth, videoHeight);
-        canvasRef.current.toBlob((blob) => {
-            imageRef.current = blob;
-        })
-    };
-    
-
-    return (
-        <>
-            <h1>Object Detector</h1>
-            <div>
-                <video ref={videoRef} onCanPlay={() => playCameraStream()}/>
-            </div>
-            
-            <canvas ref={canvasRef} hidden></canvas>
-            <div>
-            <img alt="" src={result} width="320" />
-            </div>
-        </>
-    )
 };
 
 export default Detector;
