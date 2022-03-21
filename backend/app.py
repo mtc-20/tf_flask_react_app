@@ -161,7 +161,7 @@ def getDetections(image_file):
 	scores = interpreter.get_tensor(output_details[2]['index'])[0]
 	# num = interpreter.get_tensor(output_details[3]['index'])[0]
 
-	overlaid = viz_bboxes_and_labels(img_input, boxes.copy(), labels.astype(np.int64).copy(), scores.copy(), labels_dict)
+	overlaid = viz_bboxes_and_labels(img_input, boxes.copy(), labels.astype(np.int64).copy(), scores.copy(), labels_dict, min_score_thresh=0.6)
 	del boxes, labels, scores
 	gc.collect()
 	return overlaid

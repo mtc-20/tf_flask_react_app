@@ -1,11 +1,15 @@
 import React, { useState }  from "react";
+import "./index.css"
 
 const Detector = () => {
   
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
 
   const onFileUpload = async (e) => {
+    setLoading(true);
+    setResult("");
     if (selectedFile){
       // console.log(selectedFile)
       const formData = new FormData();
@@ -19,6 +23,7 @@ const Detector = () => {
       });
       
       if (response.status === 200) {
+        setLoading(false);
         const img_res = await response.blob();
         const imgObjectURL = URL.createObjectURL(img_res);
         setResult(imgObjectURL);
@@ -52,7 +57,14 @@ const Detector = () => {
         onClick={(e)  => onFileUpload(e)}>Upload!</button>
     </div>
 
+    {/* <span className="spinner" style={{display: loading ? "block" : "none"}}>
+       Waiting...
+    </span> */}
+
+    <div className="lds-ellipsis" style={{display: loading ? "block" : "none"}}>
+      <div></div><div></div><div></div><div></div></div>
     <div>
+      
      <img src={result} alt="" width="320"/> 
     </div>
     

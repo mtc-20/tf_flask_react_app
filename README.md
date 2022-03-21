@@ -7,6 +7,8 @@
 
 **Model Card** : [EfficientDet Lite3](https://tfhub.dev/tensorflow/lite-model/efficientdet/lite3/detection/default/1) A pretrained model on the COCO2017 dataset, and as can be seen, the accuracy is quite bad.
 
+Loading spinner taken from [loading.io][3]
+
 **v0.2 notes**:
 
 
@@ -39,3 +41,5 @@
 - Memory usage needs to be limited to 512MB
 
 [1]: https://stackoverflow.com/questions/61062303/deploy-python-app-to-heroku-slug-size-too-large
+[2]: https://stackoverflow.com/questions/56902522/react-show-loading-spinner-while-images-load  
+[3]: https://loading.io/css/
