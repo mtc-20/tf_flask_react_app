@@ -1,6 +1,6 @@
 # TF Web app 
 
-**An object detection web app using TF(inference), React(frontend) and Flask(backend) based on this [Medium article](https://medium.com/sopra-steria-norge/build-a-simple-image-classification-app-using-react-keras-and-flask-7b9075e3b6f5)).** 
+**An object detection web app using TF(inference), React(frontend) and Flask(backend) that runs inference on camera feed. Based on this [Medium article](https://medium.com/sopra-steria-norge/build-a-simple-image-classification-app-using-react-keras-and-flask-7b9075e3b6f5)).** 
 
 This app has been tested only for local deployment so far. It works but takes around 3s per detection on my system.
 
